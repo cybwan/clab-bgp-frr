@@ -29,29 +29,19 @@ topology:
       binds:
         - config/leaf2/daemons:/etc/frr/daemons
         - config/leaf2/frr.conf:/etc/frr/frr.conf
-    host11:
+    host1:
       exec:
-        - ip addr add 192.168.11.2/24 dev eth1
-        - ip route replace 0/0 via 192.168.11.1
-    host12:
+        - ip addr add 192.168.11.2/24 dev e1f1
+    host2:
       exec:
-        - ip addr add 192.168.12.2/24 dev eth1
-        - ip route replace 0/0 via 192.168.12.1
-    host21:
-      exec:
-        - ip addr add 192.168.21.2/24 dev eth1
-        - ip route replace 0/0 via 192.168.21.1
-    host22:
-      exec:
-        - ip addr add 192.168.22.2/24 dev eth1
-        - ip route replace 0/0 via 192.168.22.1
+        - ip addr add 192.168.12.2/24 dev e1f1
 
   links:
     - endpoints: ["spine1:eth1", "leaf1:eth1"]
     - endpoints: ["spine1:eth2", "leaf2:eth1"]
     - endpoints: ["spine2:eth1", "leaf1:eth2"]
     - endpoints: ["spine2:eth2", "leaf2:eth2"]
-    - endpoints: ["host11:eth1_leaf1", "leaf1:eth3_h11"]
-    - endpoints: ["host12:eth1_leaf1", "leaf1:eth3_h12"]
-    - endpoints: ["host11:eth2_leaf2", "leaf2:eth4_h11"]
-    - endpoints: ["host12:eth2_leaf2", "leaf2:eth4_h12"]
+    - endpoints: ["host1:e1f1", "leaf1:e3h1"]
+    - endpoints: ["host2:e1f1", "leaf1:e3h2"]
+    - endpoints: ["host1:e2f2", "leaf2:e4h1"]
+    - endpoints: ["host2:e2f2", "leaf2:e4h2"]
