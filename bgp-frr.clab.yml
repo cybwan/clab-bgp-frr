@@ -25,8 +25,9 @@ topology:
         - config/leaf1/daemons:/etc/frr/daemons
         - config/leaf1/frr.conf:/etc/frr/frr.conf
       exec:
-        - ip addr add 192.168.11.1/24 dev e3h1
-        - ip addr add 192.168.12.1/24 dev e3h2
+        - ip addr add 192.168.11.1/24 dev e4h1
+        - ip addr add 192.168.12.1/24 dev e4h2
+        - ip addr add 192.168.21.2/24 dev eth3
     leaf2:
       image: frrouting/frr
       binds:
@@ -35,6 +36,7 @@ topology:
       exec:
         - ip addr add 192.168.13.1/24 dev e4h1
         - ip addr add 192.168.14.1/24 dev e4h2
+        - ip addr add 192.168.21.3/24 dev eth3
     host1:
       exec:
         - ip addr add 192.168.11.2/24 dev e1f1
@@ -53,7 +55,8 @@ topology:
     - endpoints: ["spine1:eth2", "leaf2:eth1"]
     - endpoints: ["spine2:eth1", "leaf1:eth2"]
     - endpoints: ["spine2:eth2", "leaf2:eth2"]
-    - endpoints: ["host1:e1f1", "leaf1:e3h1"]
-    - endpoints: ["host2:e1f1", "leaf1:e3h2"]
+    - endpoints: ["leaf1:eth3", "leaf2:eth3"]
+    - endpoints: ["host1:e1f1", "leaf1:e4h1"]
+    - endpoints: ["host2:e1f1", "leaf1:e4h2"]
     - endpoints: ["host1:e2f2", "leaf2:e4h1"]
     - endpoints: ["host2:e2f2", "leaf2:e4h2"]
