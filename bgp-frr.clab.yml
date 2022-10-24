@@ -31,12 +31,16 @@ topology:
         - config/leaf2/frr.conf:/etc/frr/frr.conf
     host1:
       exec:
-        - ip addr add 192.168.11.2/24 dev eth1
+        - ip addr add 192.168.11.2/24 dev e1f1
+        - ip addr add 192.168.12.2/24 dev e2f2
+        - ip addr add 1.1.1.1/32 dev lo
         - ip route replace 0/0 via 192.168.11.1
     host2:
       exec:
-        - ip addr add 192.168.12.2/24 dev eth1
-        - ip route replace 0/0 via 192.168.12.1
+        - ip addr add 192.168.13.2/24 dev e1f1
+        - ip addr add 192.168.14.2/24 dev e2f2
+        - ip addr add 2.2.2.2/32 dev lo
+        - ip route replace 0/0 via 192.168.13.1
 
   links:
     - endpoints: ["spine1:eth1", "leaf1:eth1"]
